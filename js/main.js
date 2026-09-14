@@ -35,6 +35,18 @@ const io = new IntersectionObserver((entries) => {
 }, { threshold:0.15, rootMargin:'0px 0px -60px 0px' });
 revealEls.forEach(el => io.observe(el));
 
+// ---------- Marquee: start clean when it enters the viewport ----------
+const marquee = document.querySelector('.marquee');
+const marqueeObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting){
+      marquee.classList.add('in-view');
+      marqueeObserver.unobserve(marquee);
+    }
+  });
+}, { threshold:0.5 });
+marqueeObserver.observe(marquee);
+
 // ---------- Footer year ----------
 document.getElementById('year').textContent = new Date().getFullYear();
 

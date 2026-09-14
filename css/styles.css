@@ -193,7 +193,8 @@ h1,h2,h3{
   transform:rotate(-1.2deg); margin:-14px 0 60px;
   border-top:2px solid #0D1410; border-bottom:2px solid #0D1410;
 }
-.marquee-track{ display:inline-flex; animation:marquee 26s linear infinite; }
+.marquee-track{ display:inline-flex; animation:marquee 26s linear infinite; animation-play-state:paused; }
+.marquee.in-view .marquee-track{ animation-play-state:running; }
 .marquee-track span{
   font-family:var(--f-display); text-transform:uppercase;
   font-size:1.15rem; letter-spacing:.03em; padding-right:0;
@@ -371,7 +372,7 @@ h1,h2,h3{
 @media (prefers-reduced-motion: reduce){
   html{ scroll-behavior:auto; }
   .reveal{ transition:none; opacity:1; transform:none; }
-  .marquee-track{ animation:none; }
+  .marquee-track{ animation:none !important; }
   .scroll-cue span::after{ animation:none; }
   .btn:hover, .service-card:hover{ transform:none; }
 }
