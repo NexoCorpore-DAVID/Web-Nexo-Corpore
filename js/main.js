@@ -37,50 +37,55 @@ revealEls.forEach(el => io.observe(el));
 
 // ---------- Marquee: start clean when it enters the viewport ----------
 const marquee = document.querySelector('.marquee');
-const marqueeObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting){
-      marquee.classList.add('in-view');
-      marqueeObserver.unobserve(marquee);
-    }
-  });
-}, { threshold:0.5 });
-marqueeObserver.observe(marquee);
+if (marquee){
+  const marqueeObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting){
+        marquee.classList.add('in-view');
+        marqueeObserver.unobserve(marquee);
+      }
+    });
+  }, { threshold:0.5 });
+  marqueeObserver.observe(marquee);
+}
 
 // ---------- Footer year ----------
-document.getElementById('year').textContent = new Date().getFullYear();
+const yearEl = document.getElementById('year');
+if (yearEl) yearEl.textContent = new Date().getFullYear();
 
 // ---------- CTA form -> Formspree (envío por email) ----------
 const ctaForm = document.getElementById('ctaForm');
-const formMsg = document.getElementById('formMsg');
-const submitBtn = ctaForm.querySelector('button[type="submit"]');
+if (ctaForm){
+  const formMsg = document.getElementById('formMsg');
+  const submitBtn = ctaForm.querySelector('button[type="submit"]');
 
-ctaForm.addEventListener('submit', async (e) => {
-  e.preventDefault();
-  submitBtn.disabled = true;
-  submitBtn.textContent = 'Enviando...';
-  formMsg.className = 'form-msg';
-  formMsg.textContent = '';
+  ctaForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Enviando...';
+    formMsg.className = 'form-msg';
+    formMsg.textContent = '';
 
-  try {
-    const response = await fetch(ctaForm.action, {
-      method: 'POST',
-      body: new FormData(ctaForm),
-      headers: { 'Accept': 'application/json' }
-    });
+    try {
+      const response = await fetch(ctaForm.action, {
+        method: 'POST',
+        body: new FormData(ctaForm),
+        headers: { 'Accept': 'application/json' }
+      });
 
-    if (response.ok) {
-      ctaForm.reset();
-      formMsg.textContent = '¡Gracias! Hemos recibido tu solicitud, te contactaremos muy pronto.';
-      formMsg.classList.add('success');
-    } else {
-      throw new Error('Formspree error');
+      if (response.ok) {
+        ctaForm.reset();
+        formMsg.textContent = '¡Gracias! Hemos recibido tu solicitud, te contactaremos muy pronto.';
+        formMsg.classList.add('success');
+      } else {
+        throw new Error('Formspree error');
+      }
+    } catch (err) {
+      formMsg.textContent = 'No se pudo enviar. Inténtalo de nuevo o escríbenos por WhatsApp directo.';
+      formMsg.classList.add('error');
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Enviar solicitud';
     }
-  } catch (err) {
-    formMsg.textContent = 'No se pudo enviar. Inténtalo de nuevo o escríbenos por WhatsApp directo.';
-    formMsg.classList.add('error');
-  } finally {
-    submitBtn.disabled = false;
-    submitBtn.textContent = 'Enviar solicitud';
-  }
-});
+  });
+}

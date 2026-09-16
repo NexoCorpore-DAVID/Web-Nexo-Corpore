@@ -272,6 +272,12 @@
           <label for="fMensaje" class="sr-only">Cuéntanos brevemente tu situación actual (opcional)</label>
           <textarea id="fMensaje" name="mensaje" rows="3" placeholder="Cuéntanos brevemente tu situación actual (opcional)"></textarea>
         </div>
+        <div class="field-checkbox">
+          <input type="checkbox" id="fConsentimiento" name="consentimiento" value="Sí" required>
+          <label for="fConsentimiento">
+            He leído y acepto la <a href="privacidad.html" target="_blank" rel="noopener">política de privacidad</a>.
+          </label>
+        </div>
         <input type="hidden" name="_subject" value="Nueva solicitud de diagnóstico — Nexo Corpore">
         <input type="text" name="_gotcha" class="sr-only" tabindex="-1" autocomplete="off">
         <button type="submit" class="btn btn-accent btn-wide">Enviar solicitud</button>
@@ -300,6 +306,7 @@
       <a href="#proceso">Proceso</a>
       <a href="#sistema">El sistema</a>
       <a href="#contacto">Contacto</a>
+      <a href="privacidad.html">Privacidad</a>
     </nav>
     <p class="footer-copy">&copy; <span id="year"></span> Nexo Corpore. Todos los derechos reservados.</p>
   </div>
