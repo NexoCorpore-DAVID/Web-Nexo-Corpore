@@ -7,6 +7,17 @@ function updateHeader(){
 updateHeader();
 window.addEventListener('scroll', updateHeader, { passive:true });
 
+// ---------- WhatsApp floating button ----------
+const whatsappFloat = document.getElementById('whatsappFloat');
+if (whatsappFloat){
+  function updateWhatsappFloat(){
+    if (window.scrollY > 500) whatsappFloat.classList.add('visible');
+    else whatsappFloat.classList.remove('visible');
+  }
+  updateWhatsappFloat();
+  window.addEventListener('scroll', updateWhatsappFloat, { passive:true });
+}
+
 // ---------- Mobile nav ----------
 const burger = document.getElementById('burger');
 const mainNav = document.getElementById('mainNav');
